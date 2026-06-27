@@ -165,7 +165,6 @@
         /* ============================================
            GAME-SPECIFIC COMPONENTS
            ============================================ */
-        /* Matrix Game */
         .matrix-grid{display:grid;gap:10px;width:min(360px,90vw);aspect-ratio:1}
         .matrix-cell{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);cursor:pointer;transition:background .1s,border-color .1s}
         .matrix-cell.active{background:var(--accent);box-shadow:0 0 20px var(--accent-glow);border-color:var(--accent)}
@@ -173,14 +172,12 @@
         .matrix-cell.miss{background:var(--danger);border-color:var(--danger)}
         .matrix-cell.disabled{pointer-events:none}
 
-        /* Reaction Game */
         .react-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:min(360px,90vw);aspect-ratio:1}
         .react-cell{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);cursor:pointer;transition:background .08s,border-color .08s}
         .react-cell.active{background:var(--accent);box-shadow:0 0 24px var(--accent-glow);border-color:var(--accent)}
         .react-cell.miss{background:var(--danger);border-color:var(--danger)}
         .react-cell.correct{background:var(--accent-dim);border-color:var(--accent);box-shadow:0 0 15px var(--accent-glow)}
 
-        /* Stroop Game */
         .stroop-mode{font-family:'Space Grotesk';font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:0.12em;padding:8px 18px;background:var(--accent-dim);color:var(--accent);border-radius:999px;margin-bottom:24px}
         .stroop-word{font-family:'Space Grotesk';font-size:clamp(48px,10vw,80px);font-weight:700;letter-spacing:-0.02em;margin-bottom:32px;line-height:1}
         .stroop-options{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;width:min(440px,90vw)}
@@ -190,8 +187,7 @@
         .stroop-btn.wrong{border-color:var(--danger);background:var(--danger-dim)}
         .stroop-btn.disabled{opacity:0.4;pointer-events:none}
 
-        /* Digit Game */
-        .digit-display{width:min(280px,80vw);height:200px;background:var(--bg-card);border:2px solid var(--border);border-radius:var(--radius-lg);display:grid;place-items:center;margin-bottom:20px;transition:border-color .2s}
+        .digit-display{width:min(280px,80vw);min-height:200px;background:var(--bg-card);border:2px solid var(--border);border-radius:var(--radius-lg);display:grid;place-items:center;margin-bottom:20px;transition:border-color .2s;padding:10px}
         .digit-current{font-family:'Space Grotesk';font-size:clamp(80px,18vw,120px);font-weight:700;color:var(--accent);line-height:1}
         .digit-input-display{font-family:'Space Grotesk';font-size:clamp(28px,6vw,36px);font-weight:600;letter-spacing:0.15em;min-height:50px;display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:16px;color:var(--text)}
         .numpad{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;width:min(300px,80vw)}
@@ -202,7 +198,6 @@
         .numpad .action-btn:hover{color:var(--text)}
         .numpad button.disabled{opacity:0.4;pointer-events:none}
 
-        /* Pattern Game */
         .countdown-ring{width:56px;height:56px;position:relative;margin-bottom:14px}
         .countdown-ring svg{transform:rotate(-90deg)}
         .countdown-ring circle{fill:none;stroke-width:4}
@@ -220,17 +215,15 @@
         .pattern-option.wrong{border-color:var(--danger);background:var(--danger-dim)}
         .pattern-option.disabled{opacity:0.4;pointer-events:none}
 
-        /* Divergent Game */
         .divergent-timer{font-family:'Space Grotesk';font-weight:700;font-size:32px;color:var(--accent);margin-bottom:8px;font-variant-numeric:tabular-nums}
         .divergent-prompt{font-family:'Space Grotesk';font-size:clamp(28px,5vw,40px);font-weight:700;text-align:center;margin-bottom:4px;text-transform:lowercase}
         .divergent-sub{color:var(--text-dim);font-size:13px;margin-bottom:20px;text-align:center;max-width:400px}
-        .divergent-input{width:min(440px,90vw);padding:12px 16px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);font-size:16px;margin-bottom:12px} /* 16px prevents iOS zoom */
+        .divergent-input{width:min(440px,90vw);padding:12px 16px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);font-size:16px;margin-bottom:12px}
         .divergent-input:focus{outline:none;border-color:var(--accent)}
         .divergent-list{width:min(440px,90vw);max-height:180px;overflow-y:auto;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:6px}
         .divergent-list-item{padding:7px 10px;border-radius:var(--radius-sm);display:flex;align-items:center;gap:8px;font-size:14px}
         .divergent-list-item .idx{color:var(--accent);font-family:'Space Grotesk';font-weight:600;font-size:12px;min-width:22px}
 
-        /* Results */
         .results-screen{max-width:560px;margin:0 auto;padding:30px 20px;text-align:center}
         .results-screen .check{width:64px;height:64px;background:var(--accent-dim);border-radius:50%;display:grid;place-items:center;margin:0 auto 20px;color:var(--accent)}
         .results-screen h2{font-family:'Space Grotesk';font-size:28px;font-weight:700;margin-bottom:4px;letter-spacing:-0.02em}
@@ -828,6 +821,9 @@
         function step2(){
             tutContent().innerHTML = `
       ${coachBubble(2, 'Now type the sequence in FORWARD order using the numpad. Tap OK to submit.', 'Type: 7, 3, 1')}
+      <div class="digit-display" id="tut-d-display" style="height:100px">
+        <div style="text-align:center;color:var(--text-dim);font-size:14px">Type the sequence</div>
+      </div>
       <div class="digit-input-display" id="tut-d-input"></div>
       <div class="session-info">Mode: <strong style="color:var(--accent)">FORWARD</strong></div>
       <div class="numpad" id="tut-numpad">
@@ -841,12 +837,15 @@
             let input = [];
             const updateInput = ()=>{
                 const el = document.getElementById('tut-d-input');
+                if(!el) return;
                 const filled = input.join(' ');
                 const remaining = Array(seq.length - input.length).fill('_').join(' ');
                 el.innerHTML = `<span style="color:var(--text)">${filled}</span>${filled&&remaining?' ':''}<span style="color:var(--text-faint)">${remaining}</span>`;
                 const okBtn = document.querySelector('#tut-numpad button[data-d="submit"]');
-                if(input.length === seq.length) okBtn.classList.remove('disabled');
-                else okBtn.classList.add('disabled');
+                if(okBtn){
+                    if(input.length === seq.length) okBtn.classList.remove('disabled');
+                    else okBtn.classList.add('disabled');
+                }
             };
             updateInput();
 
@@ -855,11 +854,12 @@
                     if(b.classList.contains('disabled')) return;
                     if(b.dataset.d === 'del') input.pop();
                     else if(b.dataset.d === 'submit'){
+                        const display = document.getElementById('tut-d-display');
                         if(input.join('') === seq.join('')){
-                            document.getElementById('tut-d-display').style.borderColor = 'var(--accent)';
+                            if(display) display.style.borderColor = 'var(--accent)';
                             trackTimeout(finish, 1000);
                         } else {
-                            document.getElementById('tut-d-display').style.borderColor = 'var(--danger)';
+                            if(display) display.style.borderColor = 'var(--danger)';
                         }
                         return;
                     }
